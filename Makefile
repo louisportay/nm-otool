@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/02/06 13:47:51 by lportay          ###   ########.fr        #
+#    Updated: 2019/02/14 15:49:40 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,16 @@ else ifeq ($(DEBUG), sanitize)
 endif
 
 INCLUDE=\
--Iincludes
-#-I$(LIBDIR)is\
+-Iincludes\
+-I$(LIBDIR)bridge\
+-I$(LIBDIR)is\
+-I$(LIBDIR)err\
+-I$(LIBDIR)buf\
+-I$(LIBDIR)mem\
+-I$(LIBDIR)bytes\
+-I$(LIBDIR)str\
+-I$(LIBDIR)array\
+
 
 HEADERS= nm.h\
 		 otool.h\
@@ -57,7 +65,7 @@ LIBDIR= libft/
 LIB= libft.a
 
 NM= ft_nm
-OTOOL = ft_otool
+#OTOOL = ft_otool
 NAME= $(NM) $(OTOOL)
 
 GREEN="\033[32m"

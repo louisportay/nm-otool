@@ -4,3 +4,4 @@ test
 resources/
 ft_nm
 ft_otool
+*.dSYM
