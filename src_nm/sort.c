@@ -6,43 +6,34 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 19:05:50 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/19 19:06:48 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/20 17:40:01 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-static inline void	swap_sym(t_sym *a, t_sym *b)
+void	sort_symbols(t_sym *s, uint32_t size)
 {
-	t_sym t;
-
-	t = *a;
-	*a = *b;
-	*b = t;
-}
-
-void				sort_symbols(t_sym *list, uint32_t len)
-{
-	t_sym		pivot;
+	t_sym		swap;
+	int32_t		r;
 	uint32_t	i;
 	uint32_t	j;
 
-	if (len < 2)
-		return;
-	pivot = list[len / 2];
 	i = 0;
-	j = len - 1;
-	while (1)
+	while (i < size - 1)
 	{
-		while (sncmp(list[i].name, pivot.name, SYMLEN) < 0)
-			i++;
-		while (sncmp(list[j].name, pivot.name, SYMLEN) > 0)
-			j--;
-		if (i >= j)
-			break;
-		swap_sym(&list[i++], &list[j--]);
-	} 
-	sort_symbols(list, i);
-	sort_symbols(list + i, len - i);
+		j = i + 1;
+		while (j < size)
+		{
+			r = scmp(s[i].name, s[j].name);
+			if (r > 0 || (r == 0 && s[i].value > s[j].value))
+			{
+				swap = s[i];
+				s[i] = s[j];
+				s[j] = swap;
+			}
+			j++;
+		}
+		i++;
+	}
 }
-

@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nm_main.c                                          :+:      :+:    :+:   */
+/*   err.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 13:27:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 11:51:17 by lportay          ###   ########.fr       */
+/*   Created: 2018/12/12 13:48:42 by lportay           #+#    #+#             */
+/*   Updated: 2019/02/11 19:03:36 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
-#include <stdio.h>
+#ifndef ERR_H
+# define ERR_H
 
-int	main(int ac, char **av, char **env)
-{
-	return (ft_nm(ac, av, env));
-}
+/*
+** Accepted flags includes
+**
+** %s : str
+** %S : wide str
+** %u : uint64_t
+** %i : int64_t
+*/
+
+# include <stdarg.h>
+# include "buf.h"
+
+int32_t	err(const char *format, ...);
+
+#endif

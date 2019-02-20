@@ -1,7 +1,9 @@
-a.c
 a.out
+obj/
 test
+tests/
 resources/
 ft_nm
 ft_otool
 *.dSYM
+libft/

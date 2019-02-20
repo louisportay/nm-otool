@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/02/14 15:49:40 by lportay          ###   ########.fr        #
+#    Updated: 2019/02/20 21:15:14 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ ifeq ($(ARCH), Darwin)
 	CC= clang
 else ifeq ($(ARCH), Linux)
 	CC=gcc-8
+endif
+
+ifeq ($(BIN), 32)
+	CFLAGS+= -m32
 endif
 
 ifeq ($(DEBUG), yes)
@@ -51,8 +55,17 @@ INCLUDE=\
 HEADERS= nm.h\
 		 otool.h\
 
-SRC_NM= nm_main.c\
+SRC_NM= \
+		ar.c\
+		fat.c\
+		ndian.c\
 		nm.c\
+		nm_main.c\
+		print.c\
+		s32.c\
+		s64.c\
+		sort.c\
+		utils.c\
 
 SRC_OTOOL= otool_main.c\
 		   otool.c\

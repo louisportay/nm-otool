@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:03 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/19 19:08:54 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/20 23:07:30 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,22 @@
 
 int32_t	placeholder1(void *p)
 {
-	uint64_t magic;
+	uint64_t	magic;
 
 	magic = *(uint32_t *)p;
 	scts(RESET, 0, 0);
 	if (safe(p + SARMAG) && !ft_memcmp(p, ARMAG, SARMAG))
-		//archive(p)
-		printf("Archive\n");
-
+		return (f_archive(p));
 	else if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
-		f_64_bits(p);
-
+		 return (f_64_bits(p));
 	else if (magic == MH_MAGIC || magic == MH_CIGAM)
-		//32_bits(p);
-		printf("binaire 32 bits\n");
-
+		return (f_32_bits(p));
 	else if (magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64)
-		//fat_64_bits(p);
-		printf("binaire universel 64 bits\n");
-
+		return (fat_64(p));
 	else if (magic == FAT_MAGIC || magic == FAT_CIGAM)	
-		//fat_32_bits(p);
-		printf("binaire universel 32 bits\n");
+		return (fat_32(p));
 	else
-		return (err(INV_OBJ));
-
-	return (0);//
+		return (err(INV_OBJ, name(NULL)));
 }
 
 int32_t	run(char *exec, char *path, uint32_t ac)
@@ -59,7 +49,8 @@ int32_t	run(char *exec, char *path, uint32_t ac)
 					MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		return (err("%s: %s: mmap failed", exec, path));
 
-	max(p, st.st_size); //Set the address max where you can have
+	max(p, st.st_size);
+	name(path);
 
 	if (ac > 2)
 	{
@@ -77,10 +68,10 @@ int32_t	run(char *exec, char *path, uint32_t ac)
 	}
 	if (close(fd) == -1)
 		return (err("%i: failed to close fd\n", fd));
-	return (0);
+	return (r);
 }
 
-int			ft_nm(uint32_t ac, char **av, char **env)
+int		ft_nm(uint32_t ac, char **av, char **env)
 {
 	(void)		env;
 	uint32_t	u;

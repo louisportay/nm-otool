@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s64.c                                              :+:      :+:    :+:   */
+/*   s32.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 21:07:06 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/20 20:15:35 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-static int32_t	segments_64(void *p)
+static int32_t	segments(void *p)
 {	
-	struct segment_command_64	*segment;
-	struct section_64			*sct;
-	uint32_t					nsects;
+	struct segment_command	*segment;
+	struct section			*sct;
+	uint32_t				nsects;
 
-	if (!safe(p + sizeof(struct segment_command_64)))
+	if (!safe(p + sizeof(struct segment_command)))
 		return (err(INV_OBJ, name(NULL)));
-	segment = (struct segment_command_64 *)p;
-	sct = (struct section_64 *)(p + sizeof(struct segment_command_64));
+	segment = (struct segment_command *)p;
+	sct = (struct section *)(p + sizeof(struct segment_command));
 	nsects = ndian_32(segment->nsects);
 	while (safe(sct) && nsects--)
 	{
@@ -43,9 +43,9 @@ static int32_t	segments_64(void *p)
 ** We allocate only to sort the symbols
 */
 
-static int32_t	symbols_64(struct symtab_command *sym, void *p)
+static int32_t	symbols(struct symtab_command *sym, void *p)
 {
-	struct nlist_64			*symtable;
+	struct nlist			*symtable;
 	char					*strtable;
 	int32_t					nsyms;
 	t_sym					*list;
@@ -62,7 +62,7 @@ static int32_t	symbols_64(struct symtab_command *sym, void *p)
 	while (nsyms-- > 0 && safe(&symtable[nsyms]) && safe(strtable + ndian_32(symtable[nsyms].n_un.n_strx)))
 	{
 		sncpy(list[nsyms].name, (char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)), SYMLEN);
-		list[nsyms].value = ndian_64(symtable[nsyms].n_value);
+		list[nsyms].value = ndian_32(symtable[nsyms].n_value);
 		list[nsyms].type = symtable[nsyms].n_type;
 		list[nsyms].sect = symtable[nsyms].n_sect;	
 	}
@@ -73,7 +73,7 @@ static int32_t	symbols_64(struct symtab_command *sym, void *p)
 	}
 	sort_symbols(list, ndian_32(sym->nsyms));
 	while ((uint32_t)++nsyms < ndian_32(sym->nsyms))
-		print_sym(list[nsyms], 16);
+		print_sym(list[nsyms], 8);
 	free(list);
 	return (0);
 }
@@ -83,28 +83,29 @@ static int32_t	symbols_64(struct symtab_command *sym, void *p)
 ** Refer yourself to the scheme
 */
 
-int32_t	f_64_bits(void *p)
+int32_t	f_32_bits(void *p)
 {
-	struct mach_header_64	*h;
+	struct mach_header	*h;
 	struct load_command		*lc;
 	uint32_t				ncmds;
 
-	if (!safe(p + sizeof(struct mach_header_64)))
+	if (!safe(p + sizeof(struct mach_header)))
 		return (err(INV_OBJ, name(NULL)));
 
-	h = (struct mach_header_64 *)p;
+	h = (struct mach_header *)p;
 	endianness(h->magic);
-	lc = p + sizeof(struct mach_header_64);
+	lc = p + sizeof(struct mach_header);
 	ncmds = ndian_32(h->ncmds);
 	while (safe(lc) && ncmds--)
 	{
-		if (ndian_32(lc->cmd) == LC_SEGMENT_64 && segments_64(lc) < 0)
+		if (ndian_32(lc->cmd) == LC_SEGMENT&& segments(lc) < 0)
 			return (-1);
-		else if (ndian_32(lc->cmd) == LC_SYMTAB && symbols_64((struct symtab_command *)lc, p) < 0)
+		else if (ndian_32(lc->cmd) == LC_SYMTAB && symbols((struct symtab_command *)lc, p) < 0)
 			return (-1);
 		lc = (void *)lc + ndian_32(lc->cmdsize);
 	}
 	if (!safe(lc))
 		return (err(INV_OBJ, name(NULL)));
+
 	return (0);
 }

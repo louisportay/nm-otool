@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nm_main.c                                          :+:      :+:    :+:   */
+/*   bytes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 13:27:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 11:51:17 by lportay          ###   ########.fr       */
+/*   Created: 2018/12/13 16:40:35 by lportay           #+#    #+#             */
+/*   Updated: 2019/02/13 13:04:44 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
-#include <stdio.h>
+#ifndef BYTES_H
+# define BYTES_H
 
-int	main(int ac, char **av, char **env)
-{
-	return (ft_nm(ac, av, env));
-}
+#include <stdint.h>
+
+uint16_t bswap_16(uint16_t val);
+uint32_t bswap_32(uint32_t val);
+uint64_t bswap_64(uint64_t val);
+
+#endif
