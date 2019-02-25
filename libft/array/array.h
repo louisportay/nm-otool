@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 12:02:25 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/19 16:44:17 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:42:42 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	**array_dup(void **a, size_t len, void *(*dup)(void *),
 size_t	array_len(void **a);
 void	array_map(void **a, size_t len, void (*fn)(void *));
 void	array_print(void **a, size_t len, void (*print)(void *));
-void	ft_qsort(void **base, size_t nel, size_t width, int (*cmp)(const void *, const void *));
-int		icmp(const void *a, const void *b);
+
+/*
+** void	ft_qsort(void **base, size_t nel, size_t width,
+** int (*cmp)(const void *, const void *));
+*/
+
 #endif

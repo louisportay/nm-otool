@@ -36,4 +36,4 @@ $(OBJDIR)/$(STR_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(STR_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(STR_DIR):
-	mkdir -p $(OBJDIR)/$(STR_DIR)
+	mkdir -p $@

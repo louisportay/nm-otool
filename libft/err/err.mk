@@ -14,4 +14,4 @@ $(OBJDIR)/$(ERR_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(ERR_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(ERR_DIR):
-	mkdir -p $(OBJDIR)/$(ERR_DIR)
+	mkdir -p $@

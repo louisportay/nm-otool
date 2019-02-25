@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:03 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 23:07:30 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/22 11:18:21 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int32_t	run(char *exec, char *path, uint32_t ac)
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return(err("%s: %s: open failed\n", exec, path));
 	if (fstat(fd, &st) == -1)
-		return (err("%s: %s: fstat failed", exec, path));
+		return (err("%s: %s: fstat failed\n", exec, path));
 	if (S_ISDIR(st.st_mode))
-		return (err("%s: %s: Is a directory", exec, path));
+		return (err("%s: %s: Is a directory\n", exec, path));
 	if ((p = mmap(NULL, st.st_size, PROT_READ,
 					MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-		return (err("%s: %s: mmap failed", exec, path));
+		return (err("%s: %s: mmap failed\n", exec, path));
 
 	max(p, st.st_size);
 	name(path);

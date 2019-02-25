@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:49:04 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 21:10:33 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:06:37 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int32_t	fat_32(void *p)
 	i = 0;
 	while (i < nfat)
 	{
+		if (!safe(p + ndian_32(arch[i].offset)))
+			return (err(INV_OBJ, name(NULL)));
 		if (nfat > 1 && !hostarch(ndian_32(arch[i].cputype)))
 		{
 			buf_c(get_buf(), '\n');
@@ -64,6 +66,8 @@ int32_t	fat_64(void *p)
 	i = 0;
 	while (i < nfat)
 	{
+		if (!safe(p + ndian_64(arch[i].offset)))
+			return (err(INV_OBJ, name(NULL)));
 		if (nfat > 1 && !hostarch(ndian_32(arch[i].cputype)))
 		{
 			buf_c(get_buf(), '\n');

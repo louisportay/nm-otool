@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 23:10:42 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/22 11:17:12 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <mach-o/loader.h>
 # include <mach-o/nlist.h>
 # include <sys/mman.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <sys/stat.h>
 
 # include "err.h"
 # include "bridge.h"

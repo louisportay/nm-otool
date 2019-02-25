@@ -15,4 +15,4 @@ $(OBJDIR)/$(BYTES_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(BYTES_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(BYTES_DIR):
-	mkdir -p $(OBJDIR)/$(BYTES_DIR)
+	mkdir -p $@

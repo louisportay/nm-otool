@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 13:48:42 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 22:53:07 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/24 17:52:30 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@
 # include "is.h"
 # include "mem.h"
 
-# define NO_PREFIX 0
-# define PREFIX 1
+enum e_prefix
+{
+	NO_PREFIX,
+	PREFIX
+};
 
-# define LOWER 0
-# define UPPER 1
+enum e_charset
+{
+	LOWER,
+	UPPER
+};
 
 long		ft_atol(const char *nptr);
 char		*ultoa(unsigned long n);
@@ -29,9 +35,10 @@ char		*ultoa_buf(long n, char *buf);
 char		*ltoa(long n);
 char		*ltoa_buf(long n, char *buf);
 char		*ltox(unsigned long n);
-char		*ltox_buf(unsigned long n, char *buf, int prefix, int _case);
+char		*ltox_buf(unsigned long n, char *buf, enum e_prefix p,
+						enum e_charset c);
 char		*ltob(unsigned long n);
-char		*ltob_buf(unsigned long n, char *buf, int prefix);
+char		*ltob_buf(unsigned long n, char *buf, enum e_prefix p);
 unsigned	uwidth(unsigned long nb);
 unsigned	lwidth(long nb);
 long		ft_abs(long n);

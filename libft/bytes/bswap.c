@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 12:56:52 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/13 13:01:43 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:59:45 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@
 **	printf("1024 is %u as two bytes reversed\n", bswap_16(1024));
 */
 
-inline uint16_t bswap_16(uint16_t val)
+inline uint16_t	bswap_16(uint16_t val)
 {
-	return ((val & (uint16_t)0x00ffU) << 8)
-		| ((val & (uint16_t)0xff00U) >> 8);
+	return ((val & (uint16_t)0x00ffU) << 8) | ((val & (uint16_t)0xff00U) >> 8);
 }
 
 /*
@@ -36,12 +35,12 @@ inline uint16_t bswap_16(uint16_t val)
 **	printf("1024 is %u as four bytes reversed\n", bswap_32(1024));
 */
 
-inline uint32_t bswap_32(uint32_t val)
+inline uint32_t	bswap_32(uint32_t val)
 {
-	return ((val & (uint32_t)0x000000ffUL) << 24)
-		| ((val & (uint32_t)0x0000ff00UL) <<  8)
-		| ((val & (uint32_t)0x00ff0000UL) >>  8)
-		| ((val & (uint32_t)0xff000000UL) >> 24);
+	return (((val & (uint32_t)0x000000ffUL) << 24)
+			| ((val & (uint32_t)0x0000ff00UL) << 8)
+			| ((val & (uint32_t)0x00ff0000UL) >> 8)
+			| ((val & (uint32_t)0xff000000UL) >> 24));
 }
 
 /*
@@ -54,14 +53,14 @@ inline uint32_t bswap_32(uint32_t val)
 **		(unsigned long long)bswap_64(1024));
 */
 
-inline uint64_t bswap_64(uint64_t val)
+inline uint64_t	bswap_64(uint64_t val)
 {
-	return ((val & (uint64_t)0x00000000000000ffULL) << 56)
-		| ((val & (uint64_t)0x000000000000ff00ULL) << 40)
-		| ((val & (uint64_t)0x0000000000ff0000ULL) << 24)
-		| ((val & (uint64_t)0x00000000ff000000ULL) <<  8)
-		| ((val & (uint64_t)0x000000ff00000000ULL) >>  8)
-		| ((val & (uint64_t)0x0000ff0000000000ULL) >> 24)
-		| ((val & (uint64_t)0x00ff000000000000ULL) >> 40)
-		| ((val & (uint64_t)0xff00000000000000ULL) >> 56);
+	return (((val & (uint64_t)0x00000000000000ffULL) << 56)
+				| ((val & (uint64_t)0x000000000000ff00ULL) << 40)
+				| ((val & (uint64_t)0x0000000000ff0000ULL) << 24)
+				| ((val & (uint64_t)0x00000000ff000000ULL) << 8)
+				| ((val & (uint64_t)0x000000ff00000000ULL) >> 8)
+				| ((val & (uint64_t)0x0000ff0000000000ULL) >> 24)
+				| ((val & (uint64_t)0x00ff000000000000ULL) >> 40)
+				| ((val & (uint64_t)0xff00000000000000ULL) >> 56));
 }

@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:02:37 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 20:39:41 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/21 14:00:17 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	get_arg(t_buf *b, va_list *ap, const char **fmt)
 
 int32_t		err(const char *fmt, ...)
 {
-	t_buf buf;
-	va_list ap;
+	t_buf	buf;
+	va_list	ap;
 
 	buf_init(&buf, STDERR_FILENO);
 	va_start(ap, fmt);

@@ -19,4 +19,4 @@ $(OBJDIR)/$(MEM_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(MEM_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(MEM_DIR):
-	mkdir -p $(OBJDIR)/$(MEM_DIR)
+	mkdir -p $@

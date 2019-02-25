@@ -21,4 +21,4 @@ $(OBJDIR)/$(BRIDGE_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(BRIDGE_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(BRIDGE_DIR):
-	mkdir -p $(OBJDIR)/$(BRIDGE_DIR)
+	mkdir -p $@

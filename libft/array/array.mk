@@ -22,4 +22,4 @@ $(OBJDIR)/$(ARRAY_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(ARRAY_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(ARRAY_DIR):
-	mkdir -p $(OBJDIR)/$(ARRAY_DIR)
+	mkdir -p $@

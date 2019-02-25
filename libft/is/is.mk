@@ -28,4 +28,4 @@ $(OBJDIR)/$(IS_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(IS_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(IS_DIR):
-	mkdir -p $(OBJDIR)/$(IS_DIR)
+	mkdir -p $@

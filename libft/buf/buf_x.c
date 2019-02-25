@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buf_l.c                                            :+:      :+:    :+:   */
+/*   buf_x.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/17 17:43:42 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/24 18:25:04 by lportay          ###   ########.fr       */
+/*   Created: 2019/02/24 18:24:42 by lportay           #+#    #+#             */
+/*   Updated: 2019/02/24 18:33:20 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buf.h"
 
-void	buf_ul(t_buf *b, unsigned long l)
+void	buf_x(t_buf *b, unsigned long l, enum e_prefix p, enum e_charset c)
 {
 	char s[32];
 
-	ultoa_buf(l, s);
+	ltox_buf(l, s, p, c);
 	buf_s(b, s);
 }
 
-void	buf_l(t_buf *b, long l)
-{
-	char s[32];
-
-	ltoa_buf(l, s);
-	buf_s(b, s);
-}
-
-void	buf_b(t_buf *b, unsigned long l, enum e_prefix p)
-{
-	char s[80];
-
-	ltob_buf(l, s, p);
-	buf_s(b, s);
+void	buf_x_pad(t_buf *b, unsigned long l, struct s_bufopt bo)
+{	
+	buf_nc(b, bo.pad_char, bo.pad_amount);
+	buf_x(b, l, bo.p, bo.cs);
 }

@@ -6,15 +6,15 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/02/20 21:15:14 by lportay          ###   ########.fr        #
+#    Updated: 2019/02/25 14:48:23 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: clean fclean re all tags rules
 
-SRCDIR= src_nm/ src_otool/
+NMDIR= src_nm/
+OTOOLDIR=  src_otool/
 
-vpath %.c $(SRCDIR)
 vpath %.h includes/
 
 CFLAGS= -Wall -Wextra -Werror $(INCLUDE)
@@ -42,8 +42,10 @@ endif
 
 INCLUDE=\
 -Iincludes\
+-Iincludes/system\
 -I$(LIBDIR)bridge\
 -I$(LIBDIR)is\
+-I$(LIBDIR)maths\
 -I$(LIBDIR)err\
 -I$(LIBDIR)buf\
 -I$(LIBDIR)mem\
@@ -60,25 +62,32 @@ SRC_NM= \
 		fat.c\
 		ndian.c\
 		nm.c\
-		nm_main.c\
+		main.c\
 		print.c\
 		s32.c\
 		s64.c\
 		sort.c\
 		utils.c\
 
-SRC_OTOOL= otool_main.c\
+SRC_OTOOL= main.c\
 		   otool.c\
+		   ndian.c\
+		   utils.c\
+		   s64.c\
+		   print.c\
 
-OBJDIR= obj
-OBJ_NM= $(addprefix $(OBJDIR)/, $(SRC_NM:%.c=%.o))
-OBJ_OTOOL= $(addprefix $(OBJDIR)/, $(SRC_OTOOL:%.c=%.o))
+OBJDIR= obj/
+NM_OBJDIR= $(OBJDIR)nm
+OTOOL_OBJDIR= $(OBJDIR)otool
+
+OBJ_NM= $(addprefix $(NM_OBJDIR)/, $(SRC_NM:%.c=%.o))
+OBJ_OTOOL= $(addprefix $(OTOOL_OBJDIR)/, $(SRC_OTOOL:%.c=%.o))
 
 LIBDIR= libft/
 LIB= libft.a
 
 NM= ft_nm
-#OTOOL = ft_otool
+OTOOL = ft_otool
 NAME= $(NM) $(OTOOL)
 
 GREEN="\033[32m"
@@ -94,10 +103,16 @@ $(OTOOL): $(LIBDIR)$(LIB) $(OBJ_OTOOL)
 	$(CC) $(CFLAGS) -o $@ $(OBJ_OTOOL) -L$(LIBDIR) -lft
 	@echo $(GREEN)$@" Successfully created"$(RESET)
 
-$(OBJDIR)/%.o: %.c $(HEADERS) | $(OBJDIR)
-	$(COMPILE.c) $< -o $@ $(INCLUDE)
+$(NM_OBJDIR)/%.o: $(NMDIR)%.c $(HEADERS) | $(NM_OBJDIR)
+	$(COMPILE.c) $< -o $@
 
-$(OBJDIR):
+$(OTOOL_OBJDIR)/%.o: $(OTOOLDIR)%.c $(HEADERS) | $(OTOOL_OBJDIR)
+	$(COMPILE.c) $< -o $@
+
+$(NM_OBJDIR):
+	-mkdir -p $@
+
+$(OTOOL_OBJDIR):
 	-mkdir -p $@
 
 $(LIB):

@@ -3,6 +3,8 @@ BUF=\
 	buf_wc.c\
 	buf_l.c\
 	buf_utils.c\
+	buf_x.c\
+	buf_s.c\
 
 BUF_DIR=buf
 
@@ -18,4 +20,4 @@ $(OBJDIR)/$(BUF_DIR)/%.o: %.c $(HEADER) | $(OBJDIR)/$(BUF_DIR)
 	$(COMPILE.c) $< -o $@
 
 $(OBJDIR)/$(BUF_DIR):
-	mkdir -p $(OBJDIR)/$(BUF_DIR)
+	mkdir -p $@

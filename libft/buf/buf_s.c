@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nm_main.c                                          :+:      :+:    :+:   */
+/*   buf_s.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 13:27:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 11:51:17 by lportay          ###   ########.fr       */
+/*   Created: 2019/02/24 18:34:28 by lportay           #+#    #+#             */
+/*   Updated: 2019/02/24 18:37:22 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
-#include <stdio.h>
+#include "buf.h"
 
-int	main(int ac, char **av, char **env)
+void	buf_s(t_buf *b, char *s)
 {
-	return (ft_nm(ac, av, env));
+	while (*s)
+		buf_c(b, *s++);
+}
+
+void	buf_ns(t_buf *b, char *s, unsigned n)
+{
+	if (!n)
+		return ;
+	while (*s && n--)
+		buf_c(b, *s++);
+}
+
+void	buf_s_pad(t_buf *b, char *s, char pad_char, unsigned pad_amount)
+{
+	buf_nc(b, pad_char, pad_amount);
+	buf_s(b, s);
 }
