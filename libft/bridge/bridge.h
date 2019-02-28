@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 13:48:42 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/24 17:52:30 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/28 14:10:28 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include "is.h"
 # include "mem.h"
 
-enum e_prefix
+enum		e_prefix
 {
 	NO_PREFIX,
 	PREFIX
 };
 
-enum e_charset
+enum		e_charset
 {
 	LOWER,
 	UPPER

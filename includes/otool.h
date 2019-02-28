@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/25 14:50:31 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/28 15:31:30 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,34 @@
 # include "str.h"
 # include "maths.h"
 
-# define ONE_FILE "%s: at least one file must be specified\n" 
+# define ONE_FILE "%s: at least one file must be specified\n"
 # define NOT_OBJ "%s: is not an object file\n"
-# define INV_OBJ "%s: truncated or malformed object"
+# define INV_OBJ "%s: truncated or malformed object\n"
+
+# define PPC_S		" (architecture ppc):\n"
+# define PPC64_S	" (architecture ppc64):\n"
+# define I386_S		" (architecture i386):\n"
+# define X86_64_S	" (architecture x86_64):\n"
 
 # define NOT_NATIVE (0)
 # define NATIVE (1)
 
-int	ft_otool(uint32_t ac, char **av,char **env);
+int			ft_otool(uint32_t ac, char **av, char **env);
 
-int32_t	f_64_bits(void *p);
-int32_t	print_text(void *text, struct section_64 *sct64,
+int32_t		f_64_bits(void *p);
+int32_t		f_32_bits(void *p);
+int32_t		fat_64(void *p);
+int32_t		fat_32(void *p);
+int32_t		f_archive(void *p);
+
+int32_t		placeholder1(void *p);
+int32_t		print_text(void *text, struct section_64 *sct64,
 								struct section *sct);
 
 t_buf		*get_buf(void);
 char		*name(char *filename);
+uint32_t	hostarch(cpu_type_t type);
+uint32_t	*name_printed(void);
 void		*max(void *p, off_t size);
 uint32_t	safe(void *pos);
 uint32_t	endianness(uint32_t magic);

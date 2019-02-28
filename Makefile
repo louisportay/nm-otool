@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/02/25 14:48:23 by lportay          ###   ########.fr        #
+#    Updated: 2019/02/28 15:04:41 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,12 +68,17 @@ SRC_NM= \
 		s64.c\
 		sort.c\
 		utils.c\
+		utils2.c\
 
-SRC_OTOOL= main.c\
+SRC_OTOOL= \
+		   ar.c\
+		   main.c\
 		   otool.c\
 		   ndian.c\
 		   utils.c\
+		   s32.c\
 		   s64.c\
+		   fat.c\
 		   print.c\
 
 OBJDIR= obj/

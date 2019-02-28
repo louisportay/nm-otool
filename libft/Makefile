@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/02/20 22:49:21 by lportay          ###   ########.fr        #
+#    Updated: 2019/02/24 17:21:21 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ include str/str.mk
 #include utf/utf.mk
 #include vector/vector.mk
 #include wcs/wcs.mk
-#include maths/maths.mk
+include maths/maths.mk
 
 vpath %.c $(SRCDIR)
 vpath %.h $(SRCDIR)

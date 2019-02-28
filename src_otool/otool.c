@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:54 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/25 15:03:48 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/26 16:56:23 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,17 @@ int32_t	placeholder1(void *p)
 
 	magic = *(uint32_t *)p;
 	if (safe(p + SARMAG) && !ft_memcmp(p, ARMAG, SARMAG))
-		;
-	//	return (f_archive(p));
+		return (f_archive(p));
 	else if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
-		 return (f_64_bits(p));
+		return (f_64_bits(p));
 	else if (magic == MH_MAGIC || magic == MH_CIGAM)
-		;
-	//	return (f_32_bits(p));
+		return (f_32_bits(p));
 	else if (magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64)
-		;
-	//	return (fat_64(p));
+		return (fat_64(p));
 	else if (magic == FAT_MAGIC || magic == FAT_CIGAM)
-		;
-	//	return (fat_32(p));
+		return (fat_32(p));
 	else
 		return (err(NOT_OBJ, name(NULL)));
-	return (0);//
 }
 
 int32_t	run(char *exec, char *path)
@@ -54,6 +49,7 @@ int32_t	run(char *exec, char *path)
 		return (err("%s: %s: mmap failed\n", exec, path));
 	max(p, st.st_size);
 	name(path);
+	*(name_printed()) = 0;
 	r = placeholder1(p);
 	if (munmap(p, st.st_size) == -1)
 	{

@@ -6,14 +6,14 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/22 11:25:45 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/28 15:13:29 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
 static int32_t	segments_64(void *p)
-{	
+{
 	struct segment_command_64	*segment;
 	struct section_64			*sct;
 	uint32_t					nsects;
@@ -25,7 +25,7 @@ static int32_t	segments_64(void *p)
 	nsects = ndian_32(segment->nsects);
 	while (safe(sct) && nsects--)
 	{
-		if (!sncmp(sct->segname, SEG_TEXT, 16) && !sncmp(sct->sectname, SECT_TEXT, 16))	
+		if (!sncmp(sct->segname, SEG_TEXT, 16) && !sncmp(sct->sectname, SECT_TEXT, 16))
 			scts(SET, TEXT, ndian_32(segment->nsects) - nsects + scts(GET, I, 0));
 		else if (!sncmp(sct->segname, SEG_DATA, 16) && !sncmp(sct->sectname, SECT_DATA, 16))
 			scts(SET, DATA, ndian_32(segment->nsects) - nsects + scts(GET, I, 0));
@@ -64,7 +64,7 @@ static int32_t	symbols_64(struct symtab_command *sym, void *p)
 		sncpy(list[nsyms].name, (char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)), SYMLEN);
 		list[nsyms].value = ndian_64(symtable[nsyms].n_value);
 		list[nsyms].type = symtable[nsyms].n_type;
-		list[nsyms].sect = symtable[nsyms].n_sect;	
+		list[nsyms].sect = symtable[nsyms].n_sect;
 	}
 	if (nsyms >= 0 && (!safe(&symtable[nsyms]) || !safe(strtable + ndian_32(symtable[nsyms].n_un.n_strx))))
 	{
@@ -91,7 +91,6 @@ int32_t	f_64_bits(void *p)
 
 	if (!safe(p + sizeof(struct mach_header_64)))
 		return (err(INV_OBJ, name(NULL)));
-
 	h = (struct mach_header_64 *)p;
 	endianness(h->magic);
 	lc = p + sizeof(struct mach_header_64);

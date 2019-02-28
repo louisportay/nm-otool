@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 16:49:59 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/24 18:37:18 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/28 14:08:44 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ struct					s_buffer
 	unsigned char		fd;
 };
 
-
-struct s_bufopt
+struct					s_bufopt
 {
-	enum		e_prefix p;
-	enum		e_charset cs;
-	unsigned	pad_amount;
-	char		pad_char;
+	enum e_prefix		p;
+	enum e_charset		cs;
+	unsigned			pad_amount;
+	char				pad_char;
 };
 
 void					buf_init(t_buf *b, int fd);
@@ -56,6 +55,11 @@ void					buf_b(t_buf *b, unsigned long l, enum e_prefix p);
 
 void					buf_x_pad(t_buf *b, unsigned long l,
 									struct s_bufopt bo);
-void	buf_s_pad(t_buf *b, char *s, char pad_char, unsigned pad_amount);
+void					buf_s_pad(t_buf *b, char *s, char pad_char,
+									unsigned pad_amount);
+
+/*
+**						buf_fmt(t_buf *b, char *fmt, ...);
+*/
 
 #endif

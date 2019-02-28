@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/22 11:17:12 by lportay          ###   ########.fr       */
+/*   Updated: 2019/02/28 15:27:35 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 # define PPC64_S	" (for architecture ppc64):\n"
 # define I386_S		" (for architecture i386):\n"
 # define X86_64_S	" (for architecture x86_64):\n"
-
-# define DEBUG printf("DEBUG\n");//
 
 # define SYMLEN (255)
 # define NOT_NATIVE (0)

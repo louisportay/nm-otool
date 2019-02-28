@@ -3,18 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ar.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/20 21:04:34 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 14:37:09 by lportay          ###   ########.fr       */
+/*   Created: 2019/02/26 08:55:44 by lportay           #+#    #+#             */
+/*   Updated: 2019/02/26 16:59:57 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
+#include "otool.h"
+
+static void	print_filename(void)
+{
+	buf_s(get_buf(), "Archive : ");
+	buf_s(get_buf(), name(NULL));
+	buf_c(get_buf(), '\n');
+}
 
 static void	print_name(char *s)
 {
-	buf_c(get_buf(), '\n');
 	buf_s(get_buf(), name(NULL));
 	buf_c(get_buf(), '(');
 	buf_s(get_buf(), s);
@@ -25,7 +31,7 @@ static void	print_name(char *s)
 ** This is historical hack you see
 */
 
-static int	get_offset(char *s)
+static int get_offset(char *s)
 {
 	size_t			l;
 
@@ -40,13 +46,16 @@ int32_t		f_archive(void *p)
 	struct ar_hdr	*h;
 	char			*s;
 
+
 	p += SARMAG;
 	h = (struct ar_hdr *)p;
 	if (ft_atol(h->ar_size) == 0)
 		return (0);
 	if (!safe(p + ft_atol(h->ar_size) + sizeof(struct ar_hdr)))
 		return (err(INV_OBJ, name(NULL)));
+	print_filename();
 	p += ft_atol(h->ar_size) + sizeof(struct ar_hdr);
+	*(name_printed()) = 1;
 	while (1)
 	{
 		h = (struct ar_hdr *)p;
