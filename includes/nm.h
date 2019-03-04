@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 15:27:35 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 12:10:10 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,15 @@ typedef struct	s_sym
 	uint8_t		sect;
 }				t_sym;
 
-int				ft_nm(uint32_t ac, char **av, char **env);
+int				ft_nm(uint32_t ac, char **av);
+
+int32_t			placeholder1(void *p);
+
 int32_t			f_64_bits(void *p);
 int32_t			f_32_bits(void *p);
 int32_t			fat_64(void *p);
 int32_t			fat_32(void *p);
 int32_t			f_archive(void *p);
-
-int32_t			placeholder1(void *p);
 
 uint64_t		scts(int8_t action, enum e_section index, uint64_t value);
 void			print_sym(t_sym s, uint8_t width);
@@ -87,6 +88,7 @@ uint8_t			ext(uint8_t e);
 t_buf			*get_buf(void);
 void			*max(void *p, off_t size);
 uint32_t		safe(void *pos);
+int32_t			corrupt_bin(t_sym *list);
 uint32_t		hostarch(cpu_type_t type);
 uint32_t		endianness(uint32_t magic);
 uint64_t		ndian_64(uint64_t n);

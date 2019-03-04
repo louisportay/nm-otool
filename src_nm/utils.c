@@ -6,11 +6,17 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 13:14:40 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 15:05:20 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:20:20 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
+
+int32_t		corrupt_bin(t_sym *list)
+{
+	free(list);
+	return (err(INV_OBJ, name(NULL)));
+}
 
 uint64_t	scts(int8_t action, enum e_section index, uint64_t value)
 {

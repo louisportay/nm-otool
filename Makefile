@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/02/28 15:04:41 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/04 12:07:47 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OTOOLDIR=  src_otool/
 vpath %.h includes/
 
 CFLAGS= -Wall -Wextra -Werror $(INCLUDE)
-DEBUG=sanitize
+DEBUG=prod
 OPT=LIB
 ARCH:= $(shell uname)
 
@@ -80,6 +80,7 @@ SRC_OTOOL= \
 		   s64.c\
 		   fat.c\
 		   print.c\
+		   utils2.c\
 
 OBJDIR= obj/
 NM_OBJDIR= $(OBJDIR)nm

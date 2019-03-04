@@ -6,13 +6,13 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:54 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/26 16:56:23 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:54:16 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "otool.h"
 
-int32_t	placeholder1(void *p)
+int32_t		placeholder1(void *p)
 {
 	uint64_t	magic;
 
@@ -31,15 +31,21 @@ int32_t	placeholder1(void *p)
 		return (err(NOT_OBJ, name(NULL)));
 }
 
-int32_t	run(char *exec, char *path)
+static void	fail_munmap(void *p, int32_t *r)
+{
+	err("%p: failed to munmap file pointer\n", p);
+	*r = -1;
+}
+
+int32_t		run(char *exec, char *path)
 {
 	struct stat	st;
 	void		*p;
-	int32_t 	fd;
+	int32_t		fd;
 	int32_t		r;
 
 	if ((fd = open(path, O_RDONLY)) == -1)
-		return(err("%s: %s: open failed\n", exec, path));
+		return (err("%s: %s: open failed\n", exec, path));
 	if (fstat(fd, &st) == -1)
 		return (err("%s: %s: fstat failed\n", exec, path));
 	if (S_ISDIR(st.st_mode))
@@ -52,19 +58,14 @@ int32_t	run(char *exec, char *path)
 	*(name_printed()) = 0;
 	r = placeholder1(p);
 	if (munmap(p, st.st_size) == -1)
-	{
-		err("%p: failed to munmap file pointer\n", p);
-		r = -1;
-	}
+		fail_munmap(p, &r);
 	if (close(fd) == -1)
 		return (err("%i: failed to close fd\n", fd));
 	return (r);
-	return (0);//
 }
 
-int	ft_otool(uint32_t ac, char **av, char **env)
+int			ft_otool(uint32_t ac, char **av)
 {
-	(void)env;
 	uint32_t	u;
 	int32_t		r;
 	int32_t		tmp_r;

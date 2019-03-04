@@ -6,20 +6,20 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:37:50 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 14:54:41 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:47:13 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-void	dump_arch(char *arch)
+static void	dump_arch(char *arch)
 {
 	buf_c(get_buf(), '\n');
 	buf_s(get_buf(), name(NULL));
 	buf_s(get_buf(), arch);
 }
 
-int32_t	fat_64(void *p)
+int32_t		fat_64(void *p)
 {
 	struct fat_header	*h;
 	struct fat_arch_64	*arch;
@@ -48,7 +48,7 @@ int32_t	fat_64(void *p)
 	return (0);
 }
 
-int32_t	fat_32(void *p)
+int32_t		fat_32(void *p)
 {
 	struct fat_header	*h;
 	struct fat_arch		*arch;

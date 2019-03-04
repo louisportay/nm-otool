@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 13:27:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:44:24 by lportay          ###   ########.fr       */
+/*   Created: 2019/03/04 12:01:34 by lportay           #+#    #+#             */
+/*   Updated: 2019/03/04 12:01:53 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "otool.h"
 
-int	main(int ac, char **av)
+uint32_t	hostarch(cpu_type_t type)
 {
-	return (ft_otool(ac, av));
+	return (((type == CPU_TYPE_X86_64) && (sizeof(void *) == 8))
+			|| ((type == CPU_TYPE_I386) && (sizeof(void *) == 4)));
 }

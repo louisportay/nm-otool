@@ -6,13 +6,13 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:27:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/25 14:14:02 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:26:52 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av)
 {
-	return (ft_nm(ac, av, env));
+	return (ft_nm(ac, av));
 }

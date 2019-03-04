@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:35:28 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/25 16:09:10 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:57:39 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int32_t	segments_64(struct load_command *lc, void *p)
 	i = 0;
 	while (safe(sct + i + 1) && i < ndian_32(segment->nsects))
 	{
-		if (!sncmp((sct + i)->segname, SEG_TEXT, 16) && !sncmp((sct + i)->sectname, SECT_TEXT, 16))
+		if (!sncmp((sct + i)->segname, SEG_TEXT, 16) &&
+				!sncmp((sct + i)->sectname, SECT_TEXT, 16))
 		{
 			if (!safe(p + ndian_64((sct + i)->size)))
 				return (err(INV_OBJ, name(NULL)));
@@ -38,7 +39,7 @@ static int32_t	segments_64(struct load_command *lc, void *p)
 	return (0);
 }
 
-int32_t	f_64_bits(void *p)
+int32_t			f_64_bits(void *p)
 {
 	struct mach_header_64	*h;
 	struct load_command		*lc;
@@ -46,12 +47,11 @@ int32_t	f_64_bits(void *p)
 
 	if (!safe(p + sizeof(struct mach_header_64)))
 		return (err(INV_OBJ, name(NULL)));
-
 	h = (struct mach_header_64 *)p;
 	endianness(h->magic);
 	lc = p + sizeof(struct mach_header_64);
 	ncmds = ndian_32(h->ncmds);
-	while (safe (lc) && ncmds--)
+	while (safe(lc) && ncmds--)
 	{
 		if (ndian_32(lc->cmd) == LC_SEGMENT_64 && segments_64(lc, p) < 0)
 			return (-1);
@@ -61,4 +61,3 @@ int32_t	f_64_bits(void *p)
 		return (err(INV_OBJ, name(NULL)));
 	return (0);
 }
-

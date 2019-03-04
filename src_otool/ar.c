@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 08:55:44 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/26 16:59:57 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:45:15 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	print_name(char *s)
 ** This is historical hack you see
 */
 
-static int get_offset(char *s)
+static int	get_offset(char *s)
 {
 	size_t			l;
 
@@ -45,7 +45,6 @@ int32_t		f_archive(void *p)
 {
 	struct ar_hdr	*h;
 	char			*s;
-
 
 	p += SARMAG;
 	h = (struct ar_hdr *)p;

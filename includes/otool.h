@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 15:31:30 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 11:44:14 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define NOT_NATIVE (0)
 # define NATIVE (1)
 
-int			ft_otool(uint32_t ac, char **av, char **env);
+int			ft_otool(uint32_t ac, char **av);
 
 int32_t		f_64_bits(void *p);
 int32_t		f_32_bits(void *p);

@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:39:37 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 15:33:07 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/04 12:00:43 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int32_t	print_text_32(void *text, uint32_t size, uint32_t addr)
 		if (i < size)
 			buf_x_pad(get_buf(), 0xff & ((char *)text)[i], (struct s_bufopt)
 	{NO_PREFIX, LOWER, 2 - base_width(0xff & ((char *)text)[i], 16), '0'});
-
 		if (endianness(0) == NATIVE && i < size)
 			buf_c(get_buf(), ' ');
 		if (endianness(0) == NOT_NATIVE && i % 4 == 3 && i < size)
@@ -70,7 +69,8 @@ static int32_t	print_text_32(void *text, uint32_t size, uint32_t addr)
 	return (0);
 }
 
-int32_t	print_text(void *text, struct section_64 *sct64, struct section *sct)
+int32_t			print_text(void *text, struct section_64 *sct64,
+							struct section *sct)
 {
 	if (*(name_printed()) == 0)
 	{
@@ -79,10 +79,11 @@ int32_t	print_text(void *text, struct section_64 *sct64, struct section *sct)
 	}
 	buf_s(get_buf(), "Contents of (__TEXT,__text) section\n");
 	if (sct64)
-		return (print_text_64(text, ndian_64(sct64->size), ndian_64(sct64->addr)));
+		return (print_text_64(text, ndian_64(sct64->size),
+					ndian_64(sct64->addr)));
 	else if (sct)
-		return (print_text_32(text, ndian_32(sct->size), ndian_32(sct->addr)));
+		return (print_text_32(text, ndian_32(sct->size),
+					ndian_32(sct->addr)));
 	else
 		return (-1);
 }
-
