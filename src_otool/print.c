@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:39:37 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 12:00:43 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:35:12 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int32_t	print_text_32(void *text, uint32_t size, uint32_t addr)
 int32_t			print_text(void *text, struct section_64 *sct64,
 							struct section *sct)
 {
-	if (*(name_printed()) == 0)
+	if (*name_printed() == 0)
 	{
 		buf_s(get_buf(), name(NULL));
 		buf_s(get_buf(), ":\n");

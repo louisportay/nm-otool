@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:37:50 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 16:20:19 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:06:49 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int32_t		fat_64(void *p)
 {
 	struct fat_header	*h;
 	struct fat_arch_64	*arch;
-	int32_t			nfat;
-	int32_t			i;
+	int32_t				nfat;
+	int32_t				i;
 
 	h = (struct fat_header *)p;
 	if (!safe(p + sizeof(struct fat_header)))

@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 17:01:56 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:09:33 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ static int32_t	segments_64(void *p)
 	return (0);
 }
 
-static void fill_sym(struct nlist_64 *symtable, char *strtable,
+static void		fill_sym(struct nlist_64 *symtable, char *strtable,
 							int32_t nsyms, t_sym *list)
 {
-	list[nsyms].name = (char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx));
-	list[nsyms].len = safe_len((char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)));
+	list[nsyms].name =
+		(char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx));
+	list[nsyms].len =
+		safe_len((char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)));
 	list[nsyms].value = ndian_64(symtable[nsyms].n_value);
 	list[nsyms].type = symtable[nsyms].n_type;
 	list[nsyms].sect = symtable[nsyms].n_sect;

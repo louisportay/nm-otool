@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 08:55:44 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:45:15 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 19:35:41 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_name(char *s)
 }
 
 /*
-** This is historical hack you see
+** This is historical hack to skip padding you see
 */
 
 static int	get_offset(char *s)
@@ -60,8 +60,6 @@ int32_t		f_archive(void *p)
 		h = (struct ar_hdr *)p;
 		if (ft_atol(h->ar_size) == 0)
 			return (0);
-		if (!safe(p + ft_atol(h->ar_size) + sizeof(struct ar_hdr)))
-			return (err(INV_OBJ, name(NULL)));
 		s = p + sizeof(struct ar_hdr);
 		print_name(s);
 		placeholder1(p + sizeof(struct ar_hdr) + get_offset(s) - 1);

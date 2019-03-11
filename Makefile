@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/03/11 16:13:36 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/11 17:44:47 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRC_NM= \
 		sort.c\
 		utils.c\
 		utils2.c\
+		utils3.c\
 
 SRC_OTOOL= \
 		   ar.c\
@@ -130,9 +131,14 @@ main: $(LIB)
 tags:
 	ctags -R *
 
-diff:
+ndiff:
 	@./ft_nm $(f) >ft
 	@nm $(f) >o
+	@diff ft o
+
+odiff:
+	@./ft_otool $(f) >ft
+	@otool -t $(f) >o
 	@diff ft o
 
 rules:

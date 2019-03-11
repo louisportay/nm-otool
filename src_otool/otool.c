@@ -6,13 +6,13 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:54 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:54:16 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:32:05 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "otool.h"
 
-int32_t		placeholder1(void *p)
+int32_t			placeholder1(void *p)
 {
 	uint64_t	magic;
 
@@ -31,13 +31,13 @@ int32_t		placeholder1(void *p)
 		return (err(NOT_OBJ, name(NULL)));
 }
 
-static void	fail_munmap(void *p, int32_t *r)
+static void		fail_munmap(void *p, int32_t *r)
 {
 	err("%p: failed to munmap file pointer\n", p);
 	*r = -1;
 }
 
-int32_t		run(char *exec, char *path)
+static int32_t	run(char *exec, char *path)
 {
 	struct stat	st;
 	void		*p;
@@ -55,7 +55,7 @@ int32_t		run(char *exec, char *path)
 		return (err("%s: %s: mmap failed\n", exec, path));
 	max(p, st.st_size);
 	name(path);
-	*(name_printed()) = 0;
+	*name_printed() = 0;
 	r = placeholder1(p);
 	if (munmap(p, st.st_size) == -1)
 		fail_munmap(p, &r);
@@ -64,7 +64,7 @@ int32_t		run(char *exec, char *path)
 	return (r);
 }
 
-int			ft_otool(uint32_t ac, char **av)
+int				ft_otool(uint32_t ac, char **av)
 {
 	uint32_t	u;
 	int32_t		r;

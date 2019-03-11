@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 15:38:21 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:39:06 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ static int32_t	segments(void *p)
 static void		fill_sym(struct nlist *symtable, char *strtable,
 							int32_t nsyms, t_sym *list)
 {
-	list[nsyms].name = (char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx));
-	list[nsyms].len = safe_len((char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)));
+	list[nsyms].name =
+		(char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx));
+	list[nsyms].len =
+		safe_len((char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)));
 	list[nsyms].value = ndian_32(symtable[nsyms].n_value);
 	list[nsyms].type = symtable[nsyms].n_type;
 	list[nsyms].sect = symtable[nsyms].n_sect;
@@ -70,8 +72,6 @@ static int32_t	symbols(struct symtab_command *sym, void *p)
 	int32_t					nsyms;
 	t_sym					*list;
 
-	if (!safe(sym + sizeof(struct symtab_command)))
-		return (err(INV_OBJ, name(NULL)));
 	strtable = (char *)p + ndian_32(sym->stroff);
 	symtable = p + ndian_32(sym->symoff);
 	nsyms = ndian_32(sym->nsyms);

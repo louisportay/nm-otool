@@ -6,13 +6,13 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:03 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 16:20:41 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:09:03 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-int32_t		placeholder1(void *p)
+int32_t			placeholder1(void *p)
 {
 	uint64_t	magic;
 
@@ -32,13 +32,13 @@ int32_t		placeholder1(void *p)
 		return (err(INV_OBJ, name(NULL)));
 }
 
-static void	fail_munmap(void *p, int32_t *r)
+static void		fail_munmap(void *p, int32_t *r)
 {
 	err("%p: failed to munmap file pointer\n", p);
 	*r = -1;
 }
 
-static int32_t		run(char *exec, char *path)
+static int32_t	run(char *exec, char *path)
 {
 	struct stat	st;
 	void		*p;
@@ -65,7 +65,7 @@ static int32_t		run(char *exec, char *path)
 	return (r);
 }
 
-int			ft_nm(uint32_t ac, char **av)
+int				ft_nm(uint32_t ac, char **av)
 {
 	uint32_t	u;
 	int32_t		r;
