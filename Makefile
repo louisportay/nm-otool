@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/03/04 12:07:47 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/11 16:13:36 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,10 +52,6 @@ INCLUDE=\
 -I$(LIBDIR)bytes\
 -I$(LIBDIR)str\
 -I$(LIBDIR)array\
-
-
-HEADERS= nm.h\
-		 otool.h\
 
 SRC_NM= \
 		ar.c\
@@ -109,10 +105,10 @@ $(OTOOL): $(LIBDIR)$(LIB) $(OBJ_OTOOL)
 	$(CC) $(CFLAGS) -o $@ $(OBJ_OTOOL) -L$(LIBDIR) -lft
 	@echo $(GREEN)$@" Successfully created"$(RESET)
 
-$(NM_OBJDIR)/%.o: $(NMDIR)%.c $(HEADERS) | $(NM_OBJDIR)
+$(NM_OBJDIR)/%.o: $(NMDIR)%.c nm.h | $(NM_OBJDIR)
 	$(COMPILE.c) $< -o $@
 
-$(OTOOL_OBJDIR)/%.o: $(OTOOLDIR)%.c $(HEADERS) | $(OTOOL_OBJDIR)
+$(OTOOL_OBJDIR)/%.o: $(OTOOLDIR)%.c otool.h | $(OTOOL_OBJDIR)
 	$(COMPILE.c) $< -o $@
 
 $(NM_OBJDIR):
@@ -134,6 +130,11 @@ main: $(LIB)
 tags:
 	ctags -R *
 
+diff:
+	@./ft_nm $(f) >ft
+	@nm $(f) >o
+	@diff ft o
+
 rules:
 	@echo 'lportay' > auteur
 	@echo "Here are the things to review before turning in your work\n\
@@ -143,6 +144,7 @@ rules:
 	3. Norme\n\
 	4. Adequate Compilation Flags\n\
 	5. Squash Commits"
+	6. Test properly and thoroughly your project
 
 clean:
 
@@ -161,4 +163,6 @@ endif
 	$(RM) $(NAME) $(SYMLINK)
 	@$(RM) -r $(NAME).dSYM
 
-re : fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all

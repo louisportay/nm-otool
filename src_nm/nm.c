@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:03 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:34:49 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:20:41 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,13 @@ int32_t		placeholder1(void *p)
 		return (err(INV_OBJ, name(NULL)));
 }
 
-static void	print_name(char *path)
-{
-	buf_c(get_buf(), '\n');
-	buf_s(get_buf(), path);
-	buf_s(get_buf(), ":\n");
-}
-
 static void	fail_munmap(void *p, int32_t *r)
 {
 	err("%p: failed to munmap file pointer\n", p);
 	*r = -1;
 }
 
-int32_t		run(char *exec, char *path, uint32_t ac)
+static int32_t		run(char *exec, char *path)
 {
 	struct stat	st;
 	void		*p;
@@ -61,10 +54,9 @@ int32_t		run(char *exec, char *path, uint32_t ac)
 	if ((p = mmap(NULL, st.st_size, PROT_READ,
 					MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		return (err("%s: %s: mmap failed\n", exec, path));
-	if (ac > 2)
-		print_name(path);
 	max(p, st.st_size);
 	name(path);
+	*name_printed() = 0;
 	r = placeholder1(p);
 	if (munmap(p, st.st_size) == -1)
 		fail_munmap(p, &r);
@@ -81,14 +73,15 @@ int			ft_nm(uint32_t ac, char **av)
 
 	buf_init(get_buf(), STDOUT_FILENO);
 	if (ac < 2)
-		r = run(av[0], "a.out", 1);
+		r = run(av[0], "a.out");
 	else
 	{
 		u = 1;
 		r = 0;
+		nb_args(&ac);
 		while (u < ac)
 		{
-			tmp_r = run(av[0], av[u], ac);
+			tmp_r = run(av[0], av[u]);
 			if (tmp_r < r)
 				r = tmp_r;
 			u++;

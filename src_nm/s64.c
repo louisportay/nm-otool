@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:18:15 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 17:01:56 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static int32_t	segments_64(void *p)
 	return (0);
 }
 
-static void		fill_sym(struct nlist_64 *symtable, char *strtable,
+static void fill_sym(struct nlist_64 *symtable, char *strtable,
 							int32_t nsyms, t_sym *list)
 {
-	sncpy(list[nsyms].name,
-			(char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)), SYMLEN);
+	list[nsyms].name = (char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx));
+	list[nsyms].len = safe_len((char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)));
 	list[nsyms].value = ndian_64(symtable[nsyms].n_value);
 	list[nsyms].type = symtable[nsyms].n_type;
 	list[nsyms].sect = symtable[nsyms].n_sect;
@@ -70,8 +70,6 @@ static int32_t	symbols_64(struct symtab_command *sym, void *p)
 	int32_t					nsyms;
 	t_sym					*list;
 
-	if (!safe(sym + sizeof(struct symtab_command)))
-		return (err(INV_OBJ, name(NULL)));
 	strtable = (char *)p + ndian_32(sym->stroff);
 	symtable = p + ndian_32(sym->symoff);
 	nsyms = ndian_32(sym->nsyms);
@@ -105,6 +103,8 @@ int32_t			f_64_bits(void *p)
 
 	if (!safe(p + sizeof(struct mach_header_64)))
 		return (err(INV_OBJ, name(NULL)));
+	if (nb_args(NULL) > 2 && *name_printed() == 0)
+		print_name(name(NULL));
 	h = (struct mach_header_64 *)p;
 	endianness(h->magic);
 	lc = p + sizeof(struct mach_header_64);

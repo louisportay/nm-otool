@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/03/04 12:07:36 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/04 17:51:52 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,4 +73,6 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all

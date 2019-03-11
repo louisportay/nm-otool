@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 19:07:31 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/20 23:09:53 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 11:40:36 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_sect(t_sym s, uint8_t width)
 
 void		print_sym(t_sym s, uint8_t width)
 {
-	if (slen(s.name) == 0)
+	if (s.len == 0)
 		return ;
 	if (type(s.type) == N_UNDF && ext(s.type))
 	{
@@ -51,6 +51,6 @@ void		print_sym(t_sym s, uint8_t width)
 		print_sect(s, width);
 	else
 		return ;
-	buf_ns(get_buf(), s.name, 255);
+	buf_ns(get_buf(), s.name, s.len);
 	buf_c(get_buf(), '\n');
 }

@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 12:10:10 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:14:36 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ enum			e_section
 
 typedef struct	s_sym
 {
-	char		name[SYMLEN];
+	char		*name;
+	uint64_t	len;
 	uint64_t	value;
 	uint8_t		type;
 	uint8_t		sect;
@@ -83,6 +84,7 @@ void			print_sym(t_sym s, uint8_t width);
 void			sort_symbols(t_sym *list, uint32_t len);
 
 char			*name(char *filename);
+uint64_t		safe_len(char *name);
 uint8_t			type(uint8_t t);
 uint8_t			ext(uint8_t e);
 t_buf			*get_buf(void);
@@ -94,5 +96,8 @@ uint32_t		endianness(uint32_t magic);
 uint64_t		ndian_64(uint64_t n);
 uint32_t		ndian_32(uint32_t n);
 uint16_t		ndian_16(uint16_t n);
+uint32_t		nb_args(uint32_t *ac);
+void			print_name(char *path);
+uint32_t		*name_printed(void);
 
 #endif

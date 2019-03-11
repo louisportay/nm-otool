@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:21:57 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/11 15:38:21 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static int32_t	segments(void *p)
 static void		fill_sym(struct nlist *symtable, char *strtable,
 							int32_t nsyms, t_sym *list)
 {
-	sncpy(list[nsyms].name,
-			(char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)), SYMLEN);
+	list[nsyms].name = (char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx));
+	list[nsyms].len = safe_len((char *)(strtable + ndian_32(symtable[nsyms].n_un.n_strx)));
 	list[nsyms].value = ndian_32(symtable[nsyms].n_value);
 	list[nsyms].type = symtable[nsyms].n_type;
 	list[nsyms].sect = symtable[nsyms].n_sect;
@@ -105,6 +105,8 @@ int32_t			f_32_bits(void *p)
 
 	if (!safe(p + sizeof(struct mach_header)))
 		return (err(INV_OBJ, name(NULL)));
+	if (nb_args(NULL) > 2 && *name_printed() == 0)
+		print_name(name(NULL));
 	h = (struct mach_header *)p;
 	endianness(h->magic);
 	lc = p + sizeof(struct mach_header);
