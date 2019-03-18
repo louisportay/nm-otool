@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:54:54 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 19:34:40 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 14:48:40 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void				dump_arch(char *arch)
 {
-	*name_printed() = 1;
-	buf_s(get_buf(), name(NULL));
+	buf_s(get_buf(), ctx()->name);
 	buf_s(get_buf(), arch);
+	ctx()->name_printed = 1;
 }
 
 int32_t					fat_64(void *p)
@@ -28,10 +28,10 @@ int32_t					fat_64(void *p)
 
 	h = (struct fat_header *)p;
 	if (!safe(p + sizeof(struct fat_header)))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	nfat = bswap_32(h->nfat_arch);
 	if (!safe(p + sizeof(struct fat_header) + nfat * sizeof(*arch)))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	arch = (struct fat_arch_64 *)(h + 1);
 	i = -1;
 	while (++i < nfat)
@@ -64,10 +64,10 @@ int32_t					fat_32(void *p)
 
 	h = (struct fat_header *)p;
 	if (!safe(p + sizeof(struct fat_header)))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	nfat = bswap_32(h->nfat_arch);
 	if (!safe(p + sizeof(struct fat_header) + nfat * sizeof(*arch)))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	arch = (struct fat_arch *)(h + 1);
 	i = -1;
 	while (++i < nfat)

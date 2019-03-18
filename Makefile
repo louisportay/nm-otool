@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/03/18 11:00:32 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/18 14:49:46 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@ SRC_NM= \
 		sort.c\
 		utils.c\
 		utils2.c\
-		utils3.c\
 
 SRC_OTOOL= \
 		   ar.c\
@@ -77,7 +76,6 @@ SRC_OTOOL= \
 		   s64.c\
 		   fat.c\
 		   print.c\
-		   utils2.c\
 
 OBJDIR= obj/
 NM_OBJDIR= $(OBJDIR)nm

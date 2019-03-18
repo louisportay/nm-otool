@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:39:37 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 17:35:12 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 14:36:00 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int32_t	print_text_64(void *text, uint64_t size, uint64_t addr)
 	uint64_t i;
 
 	if (!safe(text + size))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	i = 0;
 	while (i < uround(size, 16))
 	{
@@ -45,7 +45,7 @@ static int32_t	print_text_32(void *text, uint32_t size, uint32_t addr)
 	uint32_t i;
 
 	if (!safe(text + size))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	i = 0;
 	while (i < uround(size, 16))
 	{
@@ -72,9 +72,9 @@ static int32_t	print_text_32(void *text, uint32_t size, uint32_t addr)
 int32_t			print_text(void *text, struct section_64 *sct64,
 							struct section *sct)
 {
-	if (*name_printed() == 0)
+	if (ctx()->name_printed == 0)
 	{
-		buf_s(get_buf(), name(NULL));
+		buf_s(get_buf(), ctx()->name);
 		buf_s(get_buf(), ":\n");
 	}
 	buf_s(get_buf(), "Contents of (__TEXT,__text) section\n");

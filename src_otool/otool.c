@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:54 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 17:32:05 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 14:48:29 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int32_t			placeholder1(void *p)
 		return (fat_64(p));
 	else if (magic == FAT_MAGIC || magic == FAT_CIGAM)
 		return (fat_32(p));
+	else if (ctx()->ar == 1)
+		return (0);
 	else
-		return (err(NOT_OBJ, name(NULL)));
+		return (err(NOT_OBJ, ctx()->name));
 }
 
 static void		fail_munmap(void *p, int32_t *r)
@@ -53,9 +55,10 @@ static int32_t	run(char *exec, char *path)
 	if ((p = mmap(NULL, st.st_size, PROT_READ,
 					MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		return (err("%s: %s: mmap failed\n", exec, path));
-	max(p, st.st_size);
-	name(path);
-	*name_printed() = 0;
+	ctx()->max = p + st.st_size;
+	ctx()->name = path;
+	ctx()->ar = 0;
+	ctx()->name_printed = 0;
 	r = placeholder1(p);
 	if (munmap(p, st.st_size) == -1)
 		fail_munmap(p, &r);
@@ -77,6 +80,7 @@ int				ft_otool(uint32_t ac, char **av)
 	{
 		u = 1;
 		r = 0;
+		ctx()->ac = ac;
 		while (u < ac)
 		{
 			tmp_r = run(av[0], av[u]);
