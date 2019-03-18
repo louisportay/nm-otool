@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 18:54:51 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 17:39:06 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 12:55:40 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int32_t	segments(void *p)
 	uint32_t				nsects;
 
 	if (!safe(p + sizeof(struct segment_command)))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	sgt = (struct segment_command *)p;
 	sct = (struct section *)(p + sizeof(struct segment_command));
 	nsects = ndian_32(sgt->nsects);
@@ -44,7 +44,7 @@ static int32_t	segments(void *p)
 		sct++;
 	}
 	if (!safe(sct))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	scts(ADD, I, ndian_32(sgt->nsects));
 	return (0);
 }
@@ -76,7 +76,7 @@ static int32_t	symbols(struct symtab_command *sym, void *p)
 	symtable = p + ndian_32(sym->symoff);
 	nsyms = ndian_32(sym->nsyms);
 	if (!safe(strtable) || !safe(symtable))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	if ((list = malloc(sizeof(t_sym) * nsyms)) == NULL)
 		return (err("Cannot allocate Memory\n"));
 	while (nsyms-- > 0 && safe(&symtable[nsyms]) &&
@@ -86,6 +86,8 @@ static int32_t	symbols(struct symtab_command *sym, void *p)
 		!safe(strtable + ndian_32(symtable[nsyms].n_un.n_strx))))
 		return (corrupt_bin(list));
 	sort_symbols(list, ndian_32(sym->nsyms));
+	if (ctx()->ac > 2 && ctx()->name_printed == 0)
+		print_name();
 	while ((uint32_t)++nsyms < ndian_32(sym->nsyms))
 		print_sym(list[nsyms], 8);
 	free(list);
@@ -104,9 +106,7 @@ int32_t			f_32_bits(void *p)
 	uint32_t			ncmds;
 
 	if (!safe(p + sizeof(struct mach_header)))
-		return (err(INV_OBJ, name(NULL)));
-	if (nb_args(NULL) > 2 && *name_printed() == 0)
-		print_name(name(NULL));
+		return (err(INV_OBJ, ctx()->name));
 	h = (struct mach_header *)p;
 	endianness(h->magic);
 	lc = p + sizeof(struct mach_header);
@@ -121,6 +121,6 @@ int32_t			f_32_bits(void *p)
 		lc = (void *)lc + ndian_32(lc->cmdsize);
 	}
 	if (!safe(lc))
-		return (err(INV_OBJ, name(NULL)));
+		return (err(INV_OBJ, ctx()->name));
 	return (0);
 }

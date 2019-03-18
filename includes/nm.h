@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:07:43 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 16:14:36 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 13:16:32 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define I386_S		" (for architecture i386):\n"
 # define X86_64_S	" (for architecture x86_64):\n"
 
+# define LEGACY_BEHAVIOUR 1
 # define SYMLEN (255)
 # define NOT_NATIVE (0)
 # define NATIVE (1)
@@ -59,6 +60,16 @@ enum			e_section
 
 # define TYPE(n) (n & N_TYPE)
 # define EXT(n) (n & N_EXT)
+
+typedef struct	s_ctx
+{
+	t_buf		b;
+	void		*max;
+	char		*name;
+	uint32_t	ac;
+	uint8_t		ar;
+	uint8_t		name_printed;
+}				t_ctx;
 
 typedef struct	s_sym
 {
@@ -83,12 +94,10 @@ uint64_t		scts(int8_t action, enum e_section index, uint64_t value);
 void			print_sym(t_sym s, uint8_t width);
 void			sort_symbols(t_sym *list, uint32_t len);
 
-char			*name(char *filename);
 uint64_t		safe_len(char *name);
 uint8_t			type(uint8_t t);
 uint8_t			ext(uint8_t e);
 t_buf			*get_buf(void);
-void			*max(void *p, off_t size);
 uint32_t		safe(void *pos);
 int32_t			corrupt_bin(t_sym *list);
 uint32_t		hostarch(cpu_type_t type);
@@ -96,8 +105,6 @@ uint32_t		endianness(uint32_t magic);
 uint64_t		ndian_64(uint64_t n);
 uint32_t		ndian_32(uint32_t n);
 uint16_t		ndian_16(uint16_t n);
-uint32_t		nb_args(uint32_t *ac);
-void			print_name(char *path);
-uint32_t		*name_printed(void);
-
+void			print_name(void);
+t_ctx			*ctx(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 13:48:42 by lportay           #+#    #+#             */
-/*   Updated: 2019/02/28 14:10:28 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/13 11:15:19 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ enum		e_charset
 };
 
 long		ft_atol(const char *nptr);
+int			ft_atoi(const char *nptr);
 char		*ultoa(unsigned long n);
 char		*ultoa_buf(long n, char *buf);
 char		*ltoa(long n);

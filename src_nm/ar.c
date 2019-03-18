@@ -6,20 +6,19 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:04:34 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/11 16:18:53 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 13:48:52 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-static void	print_name_ar(char *s)
+static void	print_ar_obj(char *ar_obj)
 {
 	buf_c(get_buf(), '\n');
-	buf_s(get_buf(), name(NULL));
+	buf_s(get_buf(), ctx()->name);
 	buf_c(get_buf(), '(');
-	buf_s(get_buf(), s);
+	buf_s(get_buf(), ar_obj);
 	buf_s(get_buf(), "):\n");
-	*name_printed() = 1;
 }
 
 /*
@@ -43,20 +42,19 @@ int32_t		f_archive(void *p)
 
 	p += SARMAG;
 	h = (struct ar_hdr *)p;
-	if (ft_atol(h->ar_size) == 0)
-		return (0);
-	if (!safe(p + ft_atol(h->ar_size) + sizeof(struct ar_hdr)))
-		return (err(INV_OBJ, name(NULL)));
-	p += ft_atol(h->ar_size) + sizeof(struct ar_hdr);
+	p += ft_atoi(h->ar_size) + sizeof(struct ar_hdr);
+	ctx()->ar = 1;
+	ctx()->name_printed = 1;
 	while (1)
 	{
 		h = (struct ar_hdr *)p;
-		if (ft_atol(h->ar_size) == 0)
+		if (ft_atoi(h->ar_size) <= 0 ||
+			!safe(p + ft_atoi(h->ar_size) + sizeof(struct ar_hdr)))
 			return (0);
 		s = p + sizeof(struct ar_hdr);
-		print_name_ar(s);
+		print_ar_obj(s);
 		placeholder1(p + sizeof(struct ar_hdr) + get_offset(s) - 1);
-		p += ft_atol(h->ar_size) + sizeof(struct ar_hdr);
+		p += ft_atoi(h->ar_size) + sizeof(struct ar_hdr);
 	}
 	return (0);
 }

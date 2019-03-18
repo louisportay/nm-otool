@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/03/11 17:44:47 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/18 11:00:32 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OTOOLDIR=  src_otool/
 vpath %.h includes/
 
 CFLAGS= -Wall -Wextra -Werror $(INCLUDE)
-DEBUG=prod
+DEBUG=yes
 OPT=LIB
 ARCH:= $(shell uname)
 
@@ -149,8 +149,9 @@ rules:
 	3. Drop Useless Libraries\n\
 	3. Norme\n\
 	4. Adequate Compilation Flags\n\
-	5. Squash Commits"
-	6. Test properly and thoroughly your project
+	5. Squash Commits\n\
+	6. Test properly and thoroughly your project\n\
+	7. Ask someone to review/test your project"
 
 clean:
 

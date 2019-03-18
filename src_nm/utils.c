@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 13:14:40 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/04 11:20:20 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/18 13:00:58 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int32_t		corrupt_bin(t_sym *list)
 {
 	free(list);
-	return (err(INV_OBJ, name(NULL)));
+	return (err(INV_OBJ, ctx()->name));
 }
 
 uint64_t	scts(int8_t action, enum e_section index, uint64_t value)
@@ -38,19 +38,33 @@ uint64_t	scts(int8_t action, enum e_section index, uint64_t value)
 	return (0);
 }
 
-uint8_t		type(uint8_t t)
+uint32_t	hostarch(cpu_type_t type)
 {
-	return (t & N_TYPE);
+	if ((type == CPU_TYPE_X86_64) && (sizeof(void *) == 8))
+		return (1);
+	if ((type == CPU_TYPE_I386) && (sizeof(void *) == 4))
+		return (1);
+	return (0);
 }
 
-uint8_t		ext(uint8_t e)
+uint64_t	safe_len(char *name)
 {
-	return (e & N_EXT);
+	uint64_t len;
+
+	len = 0;
+	while (*name)
+	{
+		len++;
+		name++;
+		if (!safe(name + 1))
+			return (len);
+	}
+	return (len);
 }
 
-t_buf		*get_buf(void)
+void		print_name(void)
 {
-	static t_buf b;
-
-	return (&b);
+	buf_c(get_buf(), '\n');
+	buf_s(get_buf(), ctx()->name);
+	buf_s(get_buf(), ":\n");
 }
