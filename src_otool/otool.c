@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 13:43:54 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/18 14:48:29 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/19 19:44:45 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int32_t			placeholder1(void *p)
 {
 	uint64_t	magic;
 
+	if (!safe(p))
+		return (err(INV_OBJ, ctx()->name));
 	magic = *(uint32_t *)p;
 	if (safe(p + SARMAG) && !ft_memcmp(p, ARMAG, SARMAG))
 		return (f_archive(p));

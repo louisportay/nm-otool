@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/03/18 14:49:46 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/19 19:36:11 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OTOOLDIR=  src_otool/
 vpath %.h includes/
 
 CFLAGS= -Wall -Wextra -Werror $(INCLUDE)
-DEBUG=yes
+DEBUG=prod
 OPT=LIB
 ARCH:= $(shell uname)
 
