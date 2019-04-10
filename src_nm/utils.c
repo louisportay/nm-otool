@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 13:14:40 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/18 13:00:58 by lportay          ###   ########.fr       */
+/*   Updated: 2019/04/10 17:30:12 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ uint64_t	safe_len(char *name)
 		len++;
 		name++;
 		if (!safe(name + 1))
-			return (len);
+			return (len - 1);
 	}
 	return (len);
 }

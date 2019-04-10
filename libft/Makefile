@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/03/04 17:51:52 by lportay          ###   ########.fr        #
+#    Updated: 2019/04/10 18:03:07 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,20 +14,17 @@
 
 CC= gcc-8
 CFLAGS= -Wall -Wextra -Werror $(INCLUDE)
-DEBUG=prod
+DEBUG=no
 ARCH:= $(shell uname)
 
 ifeq ($(ARCH), Darwin)
 	CC= clang
 endif
 
-
 ifeq ($(DEBUG),yes)
-	CFLAGS+= -g3
-else ifeq ($(DEBUG), prod)
-	CFLAGS+= -O3
+	CFLAGS += -g3
 else ifeq ($(DEBUG),sanitize)
-	CFLAGS+= -fsanitize=address -g3
+	CFLAGS += -fsanitize=address -g3
 endif
 
 NAME= libft.a

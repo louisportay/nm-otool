@@ -6,7 +6,7 @@
 /*   By: lportay <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:04:34 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/18 13:48:52 by lportay          ###   ########.fr       */
+/*   Updated: 2019/04/10 17:41:46 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int32_t		f_archive(void *p)
 	while (1)
 	{
 		h = (struct ar_hdr *)p;
-		if (ft_atoi(h->ar_size) <= 0 ||
+		if (!safe(h->ar_size) || ft_atoi(h->ar_size) <= 0 ||
 			!safe(p + ft_atoi(h->ar_size) + sizeof(struct ar_hdr)))
 			return (0);
 		s = p + sizeof(struct ar_hdr);

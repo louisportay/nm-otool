@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/13 10:52:14 by lportay           #+#    #+#              #
-#    Updated: 2019/03/19 19:36:11 by lportay          ###   ########.fr        #
+#    Updated: 2019/04/10 12:25:19 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OTOOLDIR=  src_otool/
 vpath %.h includes/
 
 CFLAGS= -Wall -Wextra -Werror $(INCLUDE)
-DEBUG=prod
+DEBUG=no
 OPT=LIB
 ARCH:= $(shell uname)
 
@@ -34,8 +34,6 @@ endif
 
 ifeq ($(DEBUG), yes)
 	CFLAGS+= -g3
-else ifeq ($(DEBUG), prod)
-	CFLAGS+= -O3 -DNDEBUG
 else ifeq ($(DEBUG), sanitize)
 	CFLAGS+= -g3 -fsanitize=address
 endif
